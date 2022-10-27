@@ -37,4 +37,9 @@ func main() {
 	const Pi float64 = 3.14
 	fmt.Println(Pi)
 
+	fmt.Printf("%d\n", angka)
+	fmt.Printf("Nilai anda %d , Nama Anda : %s %s\n", angka, lastname, firstname)
+	fmt.Println("Nama anda", angka, "nama anda", lastname, firstname)
+	temp := fmt.Sprintf("Nilai anda: %d", angka)
+	fmt.Println(temp)
 }

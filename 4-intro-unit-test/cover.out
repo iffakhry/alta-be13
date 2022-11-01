@@ -1,4 +1,14 @@
 mode: set
 fakhry/unittest/calculator/library/calculate.go:5.37,8.2 2 1
-fakhry/unittest/calculator/library/calculate.go:10.38,13.2 2 0
-fakhry/unittest/calculator/library/calculate.go:15.36,18.2 2 0
+fakhry/unittest/calculator/library/calculate.go:10.38,13.2 2 1
+fakhry/unittest/calculator/library/calculate.go:15.36,18.2 2 1
+fakhry/unittest/calculator/library/calculate.go:20.38,22.32 2 1
+fakhry/unittest/calculator/library/calculate.go:33.2,33.15 1 1
+fakhry/unittest/calculator/library/calculate.go:22.32,24.3 1 1
+fakhry/unittest/calculator/library/calculate.go:24.8,24.39 1 1
+fakhry/unittest/calculator/library/calculate.go:24.39,26.3 1 1
+fakhry/unittest/calculator/library/calculate.go:26.8,26.38 1 0
+fakhry/unittest/calculator/library/calculate.go:26.38,28.3 1 0
+fakhry/unittest/calculator/library/calculate.go:28.8,28.37 1 0
+fakhry/unittest/calculator/library/calculate.go:28.37,30.3 1 0
+fakhry/unittest/calculator/library/calculate.go:30.8,32.3 1 0

@@ -6,6 +6,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+/*
+untuk menambahkan library testify. jalankan
+go get github.com/stretchr/testify
+atau
+go get -u github.com/stretchr/testify
+
+source: https://github.com/stretchr/testify
+*/
+
 func TestPenambahan(t *testing.T) {
 	t.Run("Test Fungsi Penambahan dengan 2 bilangan positif", func(t *testing.T) {
 		a := 15

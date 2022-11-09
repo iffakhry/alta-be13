@@ -28,7 +28,7 @@ publisher varchar(255),
 author varchar(100),
 publish_year varchar(50),
 user_id varchar(10),
-CONSTRAINT fk_BooksUsers FOREIGN KEY (user_id) REFERENCES users(id)
+CONSTRAINT fk_BooksUsers FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 

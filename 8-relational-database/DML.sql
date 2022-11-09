@@ -3,7 +3,7 @@ INSERT INTO users(id, nama, email, password, phone, domisili)
 VALUES ("usr1", "Andi", "andi@mail.com","qwerty", "0812345", "jakarta");
 
 INSERT INTO users(id, nama, email, password, phone, domisili)
-VALUES ("usr2", "Andi", "andi@mail.com","qwerty", "0812345", "jakarta");
+VALUES ("usr2", "Andi", "andi1@mail.com","qwerty", "0812378", "jakarta");
 
 INSERT INTO users(id, nama, email, password, phone, domisili)
 VALUES ("usr3", "Budi", "budi@mail.com","qwerty", "0813456", "surabaya");
@@ -100,7 +100,65 @@ SELECT * FROM books;
 -- cascade = bisa langsung menghapus di level parent, namun data di table child akan ikut ke hapus
 
 
+-- INNER JOIN
+SELECT books.id, books.title, books.author, books.user_id, users.nama, users.email FROM books 
+INNER JOIN users ON books.user_id = users.id;
 
+SELECT b.id, b.title, b.author, b.user_id, u.nama, u.email FROM books b
+INNER JOIN users u ON b.user_id = u.id;
+
+SELECT books.id, books.title, books.author, books.user_id, users.nama, users.email FROM users 
+INNER JOIN books ON books.user_id = users.id
+WHERE books.title like "%pemrograman%" ORDER BY books.id desc;
+
+-- LEFT JOIN
+SELECT users.id, users.nama, users.email, books.id as book_id, books.title FROM users
+LEFT JOIN books ON users.id = books.user_id;
+
+-- RIGHT JOIN
+SELECT users.id, users.nama, users.email, books.id, books.title FROM users
+RIGHT JOIN books ON users.id = books.user_id;
+
+-- Insert table loan
+insert into loan(user_id, book_id, return_date, status)
+values ("usr2", 1, "2022-11-12 10:00:00", "dipinjam");
+
+insert into loan(user_id, book_id, return_date, status)
+values ("usr5", 8, "2022-11-20", "dipinjam");
+
+insert into loan(user_id, book_id, return_date, status)
+values ("usr4", 10, "2022-11-20", "dipinjam");
+
+select * from loan;
+
+-- AGREGASI
+-- MIN
+select min(id) from loan;
+select min(return_date) from loan;
+
+-- max
+select max(id) from loan;
+select max(return_date) as tanggal_kembali from loan;
+
+-- COUNT
+select count(id) as jumlah_buku from books;
+select count(id) as jumlah_buku from books where user_id = "usr4";
+
+-- having
+-- menampilkan user yang memiliki buku, beserta jumlah buku yang dipunyai
+select users.id, users.nama, users.email, count(books.id) as jumlah_buku from users
+inner join books on users.id = books.user_id
+GROUP BY users.id;
+
+-- menampilkan user yang memiliki buku, beserta jumlah buku yang dipunyai, dan hanya menampilkan user yang memiliki buku lebih dari 1
+select users.id, users.nama, users.email, count(books.id) as jumlah_buku from users
+inner join books on users.id = books.user_id
+GROUP BY users.id
+HAVING count(books.id) > 1;
+
+-- NO 1a
+
+-- no 1b
 
 
 

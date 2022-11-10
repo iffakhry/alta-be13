@@ -129,6 +129,9 @@ values ("usr5", 8, "2022-11-20", "dipinjam");
 insert into loan(user_id, book_id, return_date, status)
 values ("usr4", 10, "2022-11-20", "dipinjam");
 
+insert into loan(user_id, book_id, return_date, status)
+values ("usr5", 10, "2022-11-25", "dipinjam");
+
 select * from loan;
 
 -- AGREGASI
@@ -156,9 +159,35 @@ inner join books on users.id = books.user_id
 GROUP BY users.id
 HAVING count(books.id) > 1;
 
--- NO 1a
+SELECT * FROM users;
+-- SUBQUERY
+-- tampilkan data user yang sudah memiliki buku saja
+SELECT user_id FROM books GROUP BY user_id;
+SELECT DISTINCT user_id FROM books;
 
--- no 1b
+SELECT * FROM users WHERE id IN (SELECT DISTINCT user_id FROM books);
+
+-- tampilkan data user yang belum memiliki buku saja
+SELECT * FROM users WHERE id NOT IN (SELECT DISTINCT user_id FROM books);
+
+-- tampilkan user yang belum pernah meminjam buku
+select * from loan;
+select * from users where id not in (select distinct user_id from loan);
+
+-- tampilkan semua buku yang sudah pernah dipinjam
+select * from books where id in (select distinct book_id from loan);
+
+-- tampilkan semua buku yang sudah pernah dipinjam lebih dari 1x
+select * from books where id in (select book_id from loan GROUP BY book_id having count(book_id)>1);
+
+select loan.book_id,sum(book_id) from loan group by book_id;
+
+
+select * from books;
+-- MEMANGGIL FUNCTION
+SELECT f_count_book_peruser("usr2") as jumlah_buku;
+
+select count(*) from books where user_id = "usr2";
 
 
 

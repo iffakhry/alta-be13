@@ -189,6 +189,15 @@ SELECT f_count_book_peruser("usr2") as jumlah_buku;
 
 select count(*) from books where user_id = "usr2";
 
+select * from users;
+select * from books;
+-- tmpilkan data peminjaman buku
+SELECT loan.id, loan.user_id, users.nama as nama_peminjam, loan.book_id, books.title, books.user_id as id_pemilik, u.nama as pemilik, loan.return_date, loan.status 
+FROM loan
+INNER JOIN users ON loan.user_id = users.id
+INNER JOIN books ON loan.book_id = books.id
+INNER JOIN users u ON books.user_id = u.id;
+
 
 
 

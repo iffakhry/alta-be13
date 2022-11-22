@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -26,16 +25,10 @@ func GetUsersController(c echo.Context) error {
 	})
 }
 
-// get user by id
-func GetUserController(c echo.Context) error {
-	// your solution here
-	idParam := c.Param("id")
-	id, _ := strconv.Atoi(idParam)
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"messages": "success get user by id",
-		"users":    users[id],
-	})
-}
+// // get user by id
+// func GetUserController(c echo.Context) error {
+// 	// your solution here
+// }
 
 // // delete user by id
 // func DeleteUserController(c echo.Context) error {

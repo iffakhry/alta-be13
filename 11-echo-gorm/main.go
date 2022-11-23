@@ -81,7 +81,7 @@ func main() {
 	e.POST("/users", CreateUserController)
 
 	// start the server, and log if it fails
-	e.Start(":8080")
+	e.Logger.Fatal(e.Start(":8080"))
 
 }
 
@@ -93,12 +93,9 @@ func CreateUserController(c echo.Context) error {
 	tx := DB.Create(&user) // proses insert data
 
 	if tx.Error != nil {
-		return c.JSON(http.StatusBadRequest, tx.Error.Error())
+		return c.JSON(http.StatusBadRequest, FailedResponse("Error Db Create "+tx.Error.Error()))
 	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success create new user",
-		"user":    user,
-	})
+	return c.JSON(http.StatusOK, SuccessResponse("success create user"))
 }
 
 // get all users
@@ -107,10 +104,30 @@ func GetUsersController(c echo.Context) error {
 
 	tx := DB.Find(&users)
 	if tx.Error != nil {
-		return c.JSON(http.StatusBadRequest, tx.Error.Error())
+		return c.JSON(http.StatusBadRequest, FailedResponse("error read data"))
 	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success get all users",
-		"users":   users,
-	})
+
+	return c.JSON(http.StatusOK, SuccessWithDataResponse("success read all users", users))
+}
+
+func FailedResponse(msg string) map[string]any {
+	return map[string]any{
+		"status":  "failed",
+		"message": msg,
+	}
+}
+
+func SuccessResponse(msg string) map[string]any {
+	return map[string]any{
+		"status":  "success",
+		"message": msg,
+	}
+}
+
+func SuccessWithDataResponse(msg string, data any) map[string]any {
+	return map[string]any{
+		"status":  "success",
+		"message": msg,
+		"data":    data,
+	}
 }

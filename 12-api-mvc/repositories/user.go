@@ -14,20 +14,29 @@ func GetAllUser() ([]entities.UserCore, error) {
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
-	var dataCore []entities.UserCore
-	for _, v := range users {
-		dataCore = append(dataCore, entities.UserCore{
-			ID:        v.ID,
-			Name:      v.Name,
-			Email:     v.Email,
-			Password:  v.Password,
-			Phone:     v.Phone,
-			Address:   v.Address,
-			CreatedAt: v.CreatedAt,
-			UpdatedAt: v.UpdatedAt,
-		})
+	var dataCore = models.ListModelToUserCore(users)
+	// var dataCore []entities.UserCore
+	// for _, v := range users {
+	// 	var dataBook []entities.BookCore
+	// 	for _, vBook := range v.Books {
+	// 		dataBook = append(dataBook, entities.BookCore{
+	// 			ID:    vBook.ID,
+	// 			Title: vBook.Title,
+	// 		})
+	// 	}
+	// 	dataCore = append(dataCore, entities.UserCore{
+	// 		ID:        v.ID,
+	// 		Name:      v.Name,
+	// 		Email:     v.Email,
+	// 		Password:  v.Password,
+	// 		Phone:     v.Phone,
+	// 		Address:   v.Address,
+	// 		CreatedAt: v.CreatedAt,
+	// 		UpdatedAt: v.UpdatedAt,
+	// 		Books:     dataBook,
+	// 	})
 
-	}
+	// }
 
 	return dataCore, nil
 }

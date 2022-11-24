@@ -15,15 +15,16 @@ func GetAllUserController(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
 	}
 
-	var dataResponse []entities.UserResponse
-	for _, v := range result {
-		dataResponse = append(dataResponse, entities.UserResponse{
-			Name:    v.Name,
-			Email:   v.Email,
-			Phone:   v.Phone,
-			Address: v.Address,
-		})
-	}
+	var dataResponse = entities.ListUserCoreToResponse(result)
+	// var dataResponse []entities.UserResponse
+	// for _, v := range result {
+	// 	dataResponse = append(dataResponse, entities.UserResponse{
+	// 		Name:    v.Name,
+	// 		Email:   v.Email,
+	// 		Phone:   v.Phone,
+	// 		Address: v.Address,
+	// 	})
+	// }
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success read all users", dataResponse))
 }

@@ -26,3 +26,24 @@ func UserCoreToModel(dataCore entities.UserCore) User {
 	}
 	return userGorm
 }
+
+func ModelToUserCore(dataModel User) entities.UserCore {
+	return entities.UserCore{
+		ID:        dataModel.ID,
+		Name:      dataModel.Name,
+		Email:     dataModel.Email,
+		Password:  dataModel.Password,
+		Phone:     dataModel.Phone,
+		Address:   dataModel.Address,
+		CreatedAt: dataModel.CreatedAt,
+		UpdatedAt: dataModel.UpdatedAt,
+	}
+}
+
+func ListModelToUserCore(dataModel []User) []entities.UserCore {
+	var dataCore []entities.UserCore
+	for _, v := range dataModel {
+		dataCore = append(dataCore, ModelToUserCore(v))
+	}
+	return dataCore
+}

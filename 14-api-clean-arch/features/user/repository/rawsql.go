@@ -15,6 +15,11 @@ func NewRaw(db *sql.DB) user.RepositoryInterface {
 	}
 }
 
+// GetById implements user.RepositoryInterface
+func (*userRawRepository) GetById(id int) (data user.Core, err error) {
+	panic("unimplemented")
+}
+
 // Create implements user.RepositoryInterface
 func (*userRawRepository) Create(input user.Core) (row int, err error) {
 	panic("unimplemented")

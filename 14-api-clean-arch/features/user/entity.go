@@ -22,4 +22,5 @@ type ServiceInterface interface {
 type RepositoryInterface interface {
 	GetAll() (data []Core, err error)
 	Create(input Core) (row int, err error)
+	GetById(id int) (data Core, err error)
 }

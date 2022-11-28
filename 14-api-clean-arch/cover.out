@@ -1,0 +1,8 @@
+mode: set
+be13/clean/features/user/service/logic.go:15.63,20.2 1 1
+be13/clean/features/user/service/logic.go:23.65,29.71 2 1
+be13/clean/features/user/service/logic.go:32.2,33.22 2 1
+be13/clean/features/user/service/logic.go:36.2,36.12 1 1
+be13/clean/features/user/service/logic.go:29.71,31.3 1 1
+be13/clean/features/user/service/logic.go:33.22,35.3 1 1
+be13/clean/features/user/service/logic.go:40.68,44.2 2 1

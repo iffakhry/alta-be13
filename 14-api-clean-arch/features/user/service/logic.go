@@ -31,7 +31,7 @@ func (service *userService) Create(input user.Core) (err error) {
 	}
 	_, errCreate := service.userRepository.Create(input)
 	if errCreate != nil {
-		return errors.New("failed insert data, error query")
+		return errors.New("failed to insert data, error query")
 	}
 	return nil
 }

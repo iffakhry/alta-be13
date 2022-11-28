@@ -4,12 +4,12 @@ import "time"
 
 type Core struct {
 	ID        uint
-	Name      string
-	Email     string
-	Password  string
-	Phone     string
+	Name      string `validate:"required"`
+	Email     string `validate:"required,email"`
+	Password  string `validate:"required"`
+	Phone     string `validate:"required"`
 	Address   string
-	Role      string
+	Role      string `validate:"required"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

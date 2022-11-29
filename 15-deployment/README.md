@@ -26,10 +26,19 @@ Jika ada error saat akses server via ssh (permission denied). coba ubah hak akse
 chmod 400 namafile.pem
 ```
 
+## Update dan Upgrade Instance
+Saat pertama kali masuk ke Instance server, jalankan perintah berikut (Cukup jalankan sekali saja.)
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+```
+
 ## Transfer file ke server menggunakan SCP
 Jika ingin melakukan transfer 1 folder, tambahkan `-r`
 
 Untuk AWS, silakan ganti `namafilessh` dengan lokasi tempat file `.pem` berada.
+
+Jalankan perintah berikut di terminal local komputer kita.
 ```bash
 scp -i </direktori/namafilessh> </direktori/nama-file-yang-ditransfer> <username-server>@<public-ipv4>:/home/<username>
 
@@ -59,4 +68,18 @@ source .profile
 
 #cek apakah sudah keinstall
 go version
+```
+
+## Install MySQL client di server
+```bash
+sudo apt install mysql-client-core-8.0
+```
+#### Cara Connect ke DB MySQL di Server
+[GCP] Klik instance DB yang ingin digunakan. db host bisa dilihat di dashboard SQL instance tsb
+
+[AWS] Klik instance DB yang ingin digunakan. db host bisa dilihat dibagian DB Endpoint.
+```bash
+mysql -h <db-host> -P <db-port> -u <username> -p
+
+# ketika anda menekan enter, maka terminal akan meminta input password. anda harus memasukkan password db anda.
 ```

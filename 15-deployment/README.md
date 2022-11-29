@@ -28,6 +28,7 @@ chmod 400 namafile.pem
 
 ## Transfer file ke server menggunakan SCP
 Jika ingin melakukan transfer 1 folder, tambahkan `-r`
+
 Untuk AWS, silakan ganti `namafilessh` dengan lokasi tempat file `.pem` berada.
 ```bash
 scp -i </direktori/namafilessh> </direktori/nama-file-yang-ditransfer> <username-server>@<public-ipv4>:/home/<username>
@@ -35,5 +36,5 @@ scp -i </direktori/namafilessh> </direktori/nama-file-yang-ditransfer> <username
 # example
 scp -i ~/.ssh/sshgcpalta main.go fakhry@18.10.1.20:/home/fakhry
 
- scp -i ~/.ssh/sshgcpalta -r ./15-deployment fakhry@18.10.1.20:/home/fakhry
+scp -i ~/.ssh/sshgcpalta -r ./15-deployment fakhry@18.10.1.20:/home/fakhry
 ```

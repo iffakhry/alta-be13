@@ -38,3 +38,25 @@ scp -i ~/.ssh/sshgcpalta main.go fakhry@18.10.1.20:/home/fakhry
 
 scp -i ~/.ssh/sshgcpalta -r ./15-deployment fakhry@18.10.1.20:/home/fakhry
 ```
+
+## Install GO in server
+```bash
+wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz
+
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz
+
+nano .profile 
+#atau 
+nano .bashrc
+
+# tambahkan baris dibawah ini
+export PATH=$PATH:/usr/local/go/bin
+
+# reload
+source .bashrc
+#atau
+source .profile
+
+#cek apakah sudah keinstall
+go version
+```

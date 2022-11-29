@@ -4,6 +4,7 @@
 * Buat Instance (Compute Engine): https://cloud.google.com/compute/docs/instances/create-start-instance
 * Generate SSH untuk connect ke Instance GCP: https://cloud.google.com/compute/docs/connect/create-ssh-keys#windows-10-or-later
 * Menambahkan SSH ke Instance: https://cloud.google.com/compute/docs/connect/add-ssh-keys
+* Setup Firewall Rule: https://cloud.google.com/vpc/docs/using-firewalls
 
 Note saat melakukan generate SSH di windows, jika nama user windows nya ada spasi, maka tambahkan tanda "" di url tempat penyimpanan file ssh nya.
 contoh "c:/Users/Fakhry Firdaus/.ssh/sshgcpalta"

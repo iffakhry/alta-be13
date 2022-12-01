@@ -9,7 +9,7 @@ import (
 func main() {
 	e := echo.New()
 	e.GET("/hello", HelloController)
-	e.GET("/world", HelloController)
+	e.GET("/world", WorldController)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
@@ -17,5 +17,10 @@ func main() {
 func HelloController(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]any{
 		"message": "hello world",
+	})
+}
+func WorldController(c echo.Context) error {
+	return c.JSON(http.StatusOK, map[string]any{
+		"message": "world hello",
 	})
 }

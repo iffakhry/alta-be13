@@ -84,3 +84,167 @@ mysql -h <db-host> -P <db-port> -u <username> -p
 
 # ketika anda menekan enter, maka terminal akan meminta input password. anda harus memasukkan password db anda.
 ```
+
+# Docker
+
+## Install Docker di Ubuntu Server
+```bash
+sudo apt install docker.io
+```
+
+## Jika terjadi error (Permission Denied) saat Run Docker di Ubuntu
+```bash
+sudo usermod -a -G docker ubuntu
+
+or
+
+sudo chmod 777 /var/run/docker.sock
+```
+
+## Build Docker Image
+```bash
+docker build -t <image-name>:<tag> .
+
+# example:
+docker build -t api-images:latest .
+```
+
+## Show Docker Images
+```bash
+docker images
+
+docker images list
+```
+
+## Delete Docker Image
+```bash
+docker rmi <image-id>
+#or
+docker rmi <image-name>
+
+# example:
+docker rmi api-images
+```
+
+## Create Docker Container from Image
+Note: -d digunakan agar app berjalan di background
+```bash
+docker run -d
+-p <host-port>:<container-port>
+-e <env-name>=<env-value>
+-e <env-name>=<env-value>
+-v <host-volume>:<container-volume>
+--name <container-name> <image-name>:<tag>
+
+# example:
+docker run -p 80:8000 --name apiContainer api-images:latest
+```
+
+## Show Container
+```bash
+# melihat container yang sedang running
+docker ps
+
+# melihat seluruh container, termasuk yang sedang stop
+docker ps -a
+```
+
+## Start/Stop Container
+```bash
+docker stop <container-name>
+
+docker start <container-name>
+```
+
+## Remove Container
+```bash
+docker rm <container-name>
+
+docker rm <container-id>
+
+# example
+docker rm apiContainer
+```
+
+## Docker Logs Container
+melihat logs dari container. berguna untuk tracing ketika terjadi error di aplikasi/container.
+```bash
+docker logs <container-name>
+```
+
+## Login Docker Hub dan Push Image ke Docker Hub
+```bash
+docker login -u <username>
+
+docker build -t <username-dockerhub>/<image-name>:<tag> .
+
+docker push <username-dockerhub>/<image-name>
+```
+
+## Pull Image dari Container Registry
+```bash
+docker pull <image-name>
+```
+
+# Notes CICD
+
+## Clone Repository
+* Lakukan clone github repo di server.
+```bash
+git clone <url-git-repo>
+
+# example
+git clone https://github.com/iffakhry/alta-be11-cicd.git
+```
+
+## Setup Github Action
+* Buat folder `.github/workflows`
+* Buat file `deploy.yml`
+* Push ke branch `main`
+
+referensi: https://github.com/appleboy/ssh-action
+
+```bash
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to server using SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/fakhry/alta-be13-gcp
+            git pull origin main
+            docker stop beContainer
+            docker rm beContainer
+            docker build -t be-images:latest .
+            docker run -d -p 80:8080 -e SERVER_PORT=${{ secrets.SERVER_PORT }} -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} -e DB_HOST=${{ secrets.DB_HOST }} -e DB_PORT=${{ secrets.DB_PORT }} -e DB_NAME=${{ secrets.DB_NAME }} --name beContainer be-images:latest
+```
+
+## Konfigurasi SECRET variables
+```bash
+HOST --> IP Public v4 Server
+KEY --> isi ssh private key(gcp) atau file .pem(aws)
+PORT --> 22
+USERNAME --> ubuntu (aws) atau username (gcp)
+
+DB_HOST --> (rds)db endpoint, (gcp)ip database server
+DB_NAME --> database name
+DB_USERNAME --> username database. by default root(gcp) atau admin(aws)
+DB_PASSWORD
+DB_PORT --> 3306
+
+SERVER_PORT 
+```

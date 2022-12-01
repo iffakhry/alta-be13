@@ -1,0 +1,177 @@
+openapi: 3.0.3
+info:
+  title: ALTA BE 13
+  version: 1.0.0
+  description: Dokumentasi API ALTA BE 13
+  contact:
+    name: Official
+    url: https://academy.alterra.id
+    email: fakhry@alterra.id
+externalDocs:
+  url: https://alta.id/immersive
+  description: dokumentasi API alta immersive BE 13
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/iffakhry/alta-be13-api/1.0.0
+  - description: Real BE servers
+    url: http://38.8.1.12:80
+  - description: BE servers
+    url: https://{environment}.api.alta.id
+    variables:
+      environment:
+        default: dev
+        enum:
+          - "dev"
+          - "prod"
+
+paths:
+  /users:
+    post:
+      summary: add user
+      description: Menambah data User (register)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: "budi"
+                email: "budi@mail.com"
+                password: "qwerty"
+                phone: "0822349"
+                address: "surabaya"
+      responses:
+        '201':
+          description: Register berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "register berhasil"
+        '400':
+          description: Register gagal.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "register gagal. semua field wajib diisi"
+        '500':
+          $ref: '#/components/responses/500'
+          #description: Register gagal.
+          #content:
+            #application/json:
+              #schema:
+                #type: object
+                #example:
+                  #status: "failed"
+                  #message: "register gagal"
+    get:
+      summary: get all users
+      description: Melihat seluruh data user
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success get all users"
+                  data:
+                    - id: 1
+                      name: "budi"
+                      email: "budi@mail.com"
+                      address: "surabaya"
+                    - id: 2
+                      name: "rudi"
+                      email: "rudi@mail.com"
+                      address: "surabaya"
+        '404':
+          $ref: '#/components/responses/404'
+
+  /users/{id_user}:
+    get:
+      summary: get all users
+      description: Melihat seluruh data user
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id_user
+          description: "id user"
+          required: true
+          in: path
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success get all users"
+                  data:
+                    - id: 1
+                      name: "budi"
+                      email: "budi@mail.com"
+                      address: "surabaya"
+                    - id: 2
+                      name: "rudi"
+                      email: "rudi@mail.com"
+                      address: "surabaya"
+        '404':
+          $ref: '#/components/responses/404'
+####################################
+#  COMPONENTS
+####################################
+components:
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "use Token"
+
+  schemas:
+    ResponseWithoutData:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+          example:
+            status: "failed"
+            message: "data not found"
+
+
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+          example:
+            status: "failed"
+            message: "internal server error"
